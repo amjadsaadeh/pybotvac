@@ -35,7 +35,7 @@ class Robot:
         self.traits = traits
         self.has_persistent_maps = has_persistent_maps
 
-        self._url = '{endpoint}/vendors/neato/robots/{serial}/messages'.format(
+        self._url = '{endpoint}/vendors/vorwerk/robots/{serial}/messages'.format(
             endpoint=re.sub(':\d+', '', endpoint),  # Remove port number
             serial=self.serial)
         self._headers = {'Accept': 'application/vnd.neato.nucleo.v1'}
@@ -56,7 +56,7 @@ class Robot:
         cert_path = os.path.join(os.path.dirname(__file__), 'cert', 'neatocloud.com.crt')
         response = requests.post(self._url,
                                  json=json,
-                                 verify=cert_path,
+                                 verify=False,
                                  auth=Auth(self.serial, self.secret),
                                  headers=self._headers)
         response.raise_for_status()
